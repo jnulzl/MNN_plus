@@ -12,3 +12,6 @@ target_link_libraries(segment.out ${MNN_DEPS})
 
 add_executable(expressDemo.out ${CMAKE_CURRENT_LIST_DIR}/expressDemo.cpp)
 target_link_libraries(expressDemo.out ${MNN_DEPS})
+
+add_executable(alphapose.out ${CMAKE_CURRENT_LIST_DIR}/alphapose.cpp)
+target_link_libraries(alphapose.out ${MNN_DEPS})
