@@ -568,6 +568,9 @@ message LayerParameter {
   optional InterpParameter interp_param = 2210;
   optional ROIPoolingParameter roi_pooling_param = 2201;
   optional ClipParameter clip_param = 2202;
+
+  //########################Add by jnulzl 2020-03-28#######################################
+  optional UpsampleParameter upsample_param = 151;
 }
 
 // Message that stores parameters used by ClipLayer
@@ -2092,4 +2095,19 @@ message ShuffleChannelParameter {
   // "ShuffleNet: An Extremely Efficient Convolutional Neural Network
   // for Mobile Devices"
   optional uint32 group = 1[default = 1]; // The number of group
+}
+
+
+//########################Add by jnulzl 2020-03-28#######################################
+
+message UpsampleParameter {
+  optional int32 height = 1 [default = 32];
+  optional int32 width = 2 [default = 32];
+  optional int32 height_scale = 3 [default = 2];
+  optional int32 width_scale = 4 [default = 2];
+  enum UpsampleOp {
+    NEAREST = 0;
+    BILINEAR = 1;
+  }
+  optional UpsampleOp mode = 5 [default = BILINEAR];
 }

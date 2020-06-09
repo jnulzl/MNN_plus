@@ -70,3 +70,53 @@ void Interp::run(MNN::OpT* dstOp, const caffe::LayerParameter& parameters, const
 }
 
 static OpConverterRegister<Interp> b("Interp");
+
+// Added by jnulzl 2020-06-08 for Upsample (nearest)
+
+class Upsample : public OpConverter {
+public:
+    virtual void run(MNN::OpT* dstOp, const caffe::LayerParameter& parameters, const caffe::LayerParameter& weight);
+    Upsample() {
+    }
+    virtual ~Upsample() {
+    }
+    virtual MNN::OpType opType() {
+        return MNN::OpType_Interp;
+    }
+    virtual MNN::OpParameter type() {
+        return MNN::OpParameter_Interp;
+    }
+};
+
+void Upsample::run(MNN::OpT* dstOp, const caffe::LayerParameter& parameters, const caffe::LayerParameter& weight) {
+    auto resize         = new MNN::InterpT;
+    dstOp->main.value   = resize;
+    auto& Par           = parameters.upsample_param();
+    resize->outputWidth  = 0;
+    resize->outputHeight = 0;
+    resize->widthScale  = 1.0f;
+    resize->heightScale = 1.0f;
+
+    if (Par.has_width())
+        resize->outputWidth = Par.width();
+    if (Par.has_height())
+        resize->outputHeight = Par.height();
+
+    if (Par.has_width_scale())
+        resize->widthScale = Par.width_scale();
+    if (Par.has_height_scale())
+        resize->heightScale = Par.height_scale();
+
+    // 1:nearest 2:bilinear (3:cube)
+    if(caffe::UpsampleParameter_UpsampleOp_NEAREST == Par.mode())
+        resize->resizeType   = 1;
+    if(caffe::UpsampleParameter_UpsampleOp_BILINEAR == Par.mode())
+    {
+        resize->resizeType   = 2;
+        resize->alignCorners = true;
+    }
+}
+
+static OpConverterRegister<Upsample> c("Upsample");
+
+
