@@ -2,6 +2,11 @@
 
 [English Version](README.md)
 
+## 更新历史
+
+- 2020-06-09 在MNNConvert源码中添加`caffe`的`Upsample`层(见[caffe_plus](https://github.com/jnulzl/caffe_plus))支持（具体代码见：`tools\converter\source\caffe\ResizeInterp.cpp`与`tools\converter\source\caffe\caffe.proto`）
+
+
 ## 简介
 MNN是一个高效、轻量的深度学习框架。它支持深度模型推理与训练，尤其在端侧的推理与训练性能在业界处于领先地位。目前，MNN已经在阿里巴巴的手机淘宝、手机天猫、优酷、钉钉、闲鱼等20多个App中使用，覆盖直播、短视频、搜索推荐、商品图像搜索、互动营销、权益发放、安全风控等70多个场景。此外，IoT等场景下也有若干应用。
 
