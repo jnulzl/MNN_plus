@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     //3. process
 
     std::vector<int> inp_shape = {1, net_inp_channels, net_inp_height, net_inp_width};
-    float* data_in_ = nullptr; // processed data nchw
+    float* data_in_ = nullptr; // processed data(nchw)
     MNN::Tensor* nchw_Tensor = MNN::Tensor::create<float>(inp_shape, data_in_, MNN::Tensor::CAFFE);
     MNN::Tensor* inputTensor  = net_->getSessionInput(session_,  input_name_.c_str());
     inputTensor->copyFromHostTensor(nchw_Tensor);
